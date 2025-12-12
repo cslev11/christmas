@@ -5,7 +5,35 @@
 /**
  *  Lekérjük a tableselectort, és regisztrálunk egy change eseménykezelőt!
  */
+const div = document.getElementById("tableselector");
+div.addEventListener("change", handleTSelector);
 
+/**
+ * 
+ * @param {*} i 
+ */
+function handleTSelector(i){
+    const a = i.target;
+    if(a.value == "jssection"){
+        show("jssection");
+        hide("htmlsection");
+    }
+    else if(a.value == "htmlsection"){
+        show("htmlsection");
+        hide("jssection");
+    }
+
+}
+
+function show(id){
+    const a = document.getElementById(id);
+    a.classList.remove("hide");
+}
+
+function hide(id){
+    const a = document.getElementById(id);
+    a.classList.add("hide");
+}
 
 
 /**
@@ -19,7 +47,13 @@
  * @returns {void}
  */
 function initCheckbox(checkboxElem){
+    changeCheckboxValue(checkboxElem);
+    checkboxElem.addEventListener("change", handleCheckbox);
+}
 
+function handleCheckbox(i){
+    const a = i.target;
+    changeCheckboxValue(a);
 }
 
 /**
@@ -35,7 +69,17 @@ function initCheckbox(checkboxElem){
  * @returns {void}
  */
 function changeCheckboxValue(checkbox){
-
+    const form = checkbox.parentElement.parentElement;
+    const mano2 = form.querySelector("#mano2");
+    const muszak2 = form.querySelector("#muszak2");
+    if(checkbox.checked){
+        mano2.disabled = false;
+        muszak2.disabled = false;
+    }
+    else{
+        mano2.disabled = true;
+        muszak2.disabled = true;
+    }
 }
 
 /**
@@ -80,7 +124,10 @@ function initSelect(arr) {
  * @returns {void}
  */
 function createoption(selectElement, label, value = "") {
-
+    const option = document.createElement("option");
+    option.label = label;
+    option.value = value;
+    
 }
 
 /**
